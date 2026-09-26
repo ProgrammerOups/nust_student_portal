@@ -1,44 +1,35 @@
 {
-  "name": "nust_student_portal",
+  "name": "nust-student-portal",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NUST Student Portal Backend & Dynamic Frontend",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "postinstall": "prisma skills sync || exit 0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProgrammerOups/nust_student_portal.git"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/ProgrammerOups/nust_student_portal/issues"
-  },
-  "homepage": "https://github.com/ProgrammerOups/nust_student_portal#readme",
   "dependencies": {
-    "@prisma/client": "^7.10.0",
-    "bcrypt": "^6.0.0",
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.4",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3"
+    "@prisma/client": "^5.12.1",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^6.0.0",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.6.3",
-    "prisma": "^8.0.0-rc.17",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.12.7",
+    "prisma": "^5.12.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.3"
-  }
+  },
   "prisma": {
-  "seed": "ts-node prisma/seed.ts"
-}
+    "seed": "ts-node prisma/seed.ts"
+  }
 }
