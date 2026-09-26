@@ -182,10 +182,11 @@
             }
         }
 
-        function handleLogin(event) {
-            event.preventDefault(); // Prevent actual form submission
+        async function handleLogin(event) {
+            event.preventDefault();
             
             const studentId = document.getElementById('studentId').value;
+            const password = document.getElementById('password').value;
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
@@ -196,34 +197,59 @@
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            // Simulate network request
-            setTimeout(() => {
-                // Hide form elements
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('footerText').style.display = 'none';
-                
-                // Show success message
-                const successMsg = document.getElementById('successMessage');
-                successMsg.classList.remove('hidden');
-                successMsg.classList.add('animate-fade-in');
-                
-                document.getElementById('welcomeText').textContent = `Redirecting student ${studentId}...`;
+            try {
+                // Send POST request to backend server
+                const response = await fetch('/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ studentId, password })
+                });
 
-                // Animate progress bar
-                let width = 0;
-                const progressBar = document.getElementById('progressBar');
-                const interval = setInterval(() => {
-                    if (width >= 100) {
-                        clearInterval(interval);
-                        // In a real app, this is where window.location.href = '/dashboard' would happen
-                    } else {
-                        width += 5;
-                        progressBar.style.width = width + '%';
-                    }
-                }, 100);
+                const data = await response.json();
 
-            }, 1500);
+                if (response.ok && data.success) {
+                    // Hide form elements
+                    document.getElementById('loginForm').style.display = 'none';
+                    document.getElementById('footerText').style.display = 'none';
+                    
+                    // Show success message
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.classList.remove('hidden');
+                    
+                    document.getElementById('welcomeText').textContent = `Welcome back, ${data.user.name}! Redirecting...`;
+
+                    // Animate progress bar and redirect to Student Dashboard
+                    let width = 0;
+                    const progressBar = document.getElementById('progressBar');
+                    const interval = setInterval(() => {
+                        if (width >= 100) {
+                            clearInterval(interval);
+                            window.location.href = '/Student.html';
+                        } else {
+                            width += 20;
+                            progressBar.style.width = width + '%';
+                        }
+                    }, 100);
+                } else {
+                    alert(data.message || 'Authentication failed');
+                    // Reset button state
+                    btnText.textContent = 'Sign In';
+                    btnSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('Could not connect to the server. Please ensure the backend is running.');
+                btnText.textContent = 'Sign In';
+                btnSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+            }
         }
+        
     </script>
 </body>
 </html>
