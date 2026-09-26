@@ -296,21 +296,77 @@
     </div>
 
     <script>
-        // Toggle mobile sidebar
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            if (sidebar.classList.contains('-translate-x-full')) {
-                // Open sidebar
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                // Close sidebar
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const response = await fetch('/api/v1/student/dashboard');
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                console.error('Failed to load dashboard data');
+                return;
             }
+
+            const { profile, stats, courses, announcements } = result.data;
+
+            // 1. Update Profile Information
+            document.querySelectorAll('.font-semibold.text-gray-800, p.text-sm.font-semibold').forEach(el => {
+                if (el.textContent.includes('John Doe')) el.textContent = profile.name;
+            });
+            
+            // 2. Update Stats
+            const statValues = document.querySelectorAll('.text-2xl.font-bold.text-gray-800');
+            if (statValues[0]) statValues[0].textContent = stats.feeBalance;
+            if (statValues[1]) statValues[1].textContent = stats.currentGPA;
+            if (statValues[2]) statValues[2].textContent = stats.enrolledCoursesCount;
+
+            // 3. Render Courses Table
+            const tbody = document.querySelector('tbody');
+            if (tbody) {
+                tbody.innerHTML = courses.map(course => `
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="p-4 font-medium text-gray-800">${course.code}</td>
+                        <td class="p-4 text-gray-600">${course.title}</td>
+                        <td class="p-4 text-gray-600">${course.credits}</td>
+                        <td class="p-4">
+                            <span class="${
+                                course.status === 'Registered' 
+                                ? 'bg-green-100 text-green-700' 
+                                : 'bg-yellow-100 text-yellow-700'
+                            } px-2.5 py-1 rounded-full text-xs font-medium">
+                                ${course.status}
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // 4. Render Announcements
+            const announcementContainer = document.querySelector('.lg\\:col-span-1 .p-0') || document.querySelectorAll('.bg-white.rounded-xl')[2];
+            if (announcementContainer && announcements.length > 0) {
+                const announcementListHtml = announcements.map(item => `
+                    <div class="p-5 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="${
+                                item.category === 'Urgent' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'
+                            } text-xs px-2 py-0.5 rounded font-medium">${item.category}</span>
+                            <span class="text-xs text-gray-400">${item.time}</span>
+                        </div>
+                        <h4 class="font-medium text-gray-800 mb-1">${item.title}</h4>
+                        <p class="text-sm text-gray-500 line-clamp-2">${item.body}</p>
+                    </div>
+                `).join('');
+
+                announcementContainer.innerHTML = announcementListHtml + `
+                    <div class="p-4 text-center">
+                        <a href="#" class="text-sm text-nust-blue font-medium hover:underline">View All Announcements</a>
+                    </div>
+                `;
+            }
+
+        } catch (error) {
+            console.error('Error fetching dashboard data:', error);
         }
-    </script>
+    });
+</script>
 </body>
 </html>
