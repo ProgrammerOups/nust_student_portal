@@ -3,6 +3,9 @@ import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import authRoutes from './routes/auth.routes';
+import studentRoutes from './routes/student.routes';
+
 dotenv.config();
 
 const app = express();
@@ -13,37 +16,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static HTML files from the public folder
+// Serve static HTML templates from public/
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Root route redirecting to Login
+// API Routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/student', studentRoutes);
+
+// Root route serves Login page
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../public/Login.html'));
 });
 
-// Health check endpoint
+// Health Check
 app.get('/api/v1/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });
 });
 
-// Mock Auth endpoint to test login form submission
-app.post('/api/v1/auth/login', (req: Request, res: Response) => {
-  const { studentId, password } = req.body;
-
-  if (!studentId || !password) {
-    return res.status(400).json({ success: false, message: 'Student ID and password are required' });
-  }
-
-  // Temporary mock response
-  return res.status(200).json({
-    success: true,
-    message: 'Login successful',
-    token: 'mock-jwt-token',
-    user: { studentId, name: 'John Doe', program: 'Computer Science' }
-  });
-});
-
-// Start Server
 app.listen(PORT, () => {
   console.log(`🚀 NUST Portal Server running on http://localhost:${PORT}`);
 });
