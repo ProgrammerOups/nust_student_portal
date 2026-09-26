@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUST Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        nust: {
+                            blue: '#1e3a8a', // Deep blue
+                            gold: '#d4af37', // Gold/Amber
+                            lightBlue: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Gray-100 */
+        }
+        
+        /* Custom Scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800">
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-nust-blue text-white transform -translate-x-full lg:translate-x-0 lg:static lg:inset-auto flex flex-col shadow-xl">
+        <!-- Sidebar Header / Logo -->
+        <div class="flex items-center justify-center h-20 border-b border-blue-800">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-nust-gold rounded-lg flex items-center justify-center text-nust-blue">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-wider">NUST</span>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-800/50 text-nust-gold rounded-lg font-medium border-l-4 border-nust-gold">
+                <i class="fa-solid fa-chart-pie w-5"></i>
+                Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-book-open w-5"></i>
+                Registration
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-laptop-code w-5"></i>
+                My Courses
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-file-invoice-dollar w-5"></i>
+                Financials
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-square-poll-vertical w-5"></i>
+                Results
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-gear w-5"></i>
+                Settings
+            </a>
+        </nav>
+
+        <!-- User Mini Profile at bottom of sidebar -->
+        <div class="p-4 border-t border-blue-800">
+            <div class="flex items-center gap-3">
+                <img src="https://placehold.co/40x40/d4af37/1e3a8a?text=JD" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-nust-gold">
+                <div>
+                    <p class="text-sm font-semibold">John Doe</p>
+                    <p class="text-xs text-gray-400">N0123456X</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0 bg-gray-50 overflow-hidden">
+        
+        <!-- Top Header -->
+        <header class="bg-white shadow-sm h-20 flex items-center justify-between px-6 lg:px-10 z-10">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-nust-blue focus:outline-none lg:hidden">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <h1 class="text-xl font-semibold text-gray-800 hidden sm:block">Student Dashboard</h1>
+            </div>
+
+            <div class="flex items-center gap-4 sm:gap-6">
+                <!-- Notifications -->
+                <button class="relative text-gray-500 hover:text-nust-blue transition-colors">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
+                
+                <!-- Profile Dropdown Trigger -->
+                <div class="flex items-center gap-2 cursor-pointer border-l pl-4 sm:pl-6 border-gray-200">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-medium text-gray-700">John Doe</p>
+                        <p class="text-xs text-gray-500">Computer Science</p>
+                    </div>
+                    <img src="https://placehold.co/40x40/d4af37/1e3a8a?text=JD" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400 ml-1"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10">
+            
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-nust-blue to-blue-700 rounded-2xl p-6 sm:p-8 text-white mb-8 shadow-md relative overflow-hidden">
+                <div class="absolute right-0 top-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                    <i class="fa-solid fa-graduation-cap text-9xl"></i>
+                </div>
+                <div class="relative z-10">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Welcome back, John! 👋</h2>
+                    <p class="text-blue-100 max-w-xl">You are currently enrolled in the First Semester of the 2026 Academic Year. Don't forget to clear your outstanding fees before exam registration.</p>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Stat Card 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 font-medium mb-1">Fees Balance</p>
+                        <p class="text-2xl font-bold text-gray-800">$450.00</p>
+                        <span class="text-xs text-red-500 font-medium bg-red-50 px-2 py-1 rounded mt-2 inline-block">Action Required</span>
+                    </div>
+                    <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500">
+                        <i class="fa-solid fa-wallet text-xl"></i>
+                    </div>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 font-medium mb-1">Current GPA</p>
+                        <p class="text-2xl font-bold text-gray-800">3.8</p>
+                        <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded mt-2 inline-block">Excellent Standing</span>
+                    </div>
+                    <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600">
+                        <i class="fa-solid fa-award text-xl"></i>
+                    </div>
+                </div>
+
+                <!-- Stat Card 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 font-medium mb-1">Enrolled Courses</p>
+                        <p class="text-2xl font-bold text-gray-800">6</p>
+                        <span class="text-xs text-blue-500 font-medium bg-blue-50 px-2 py-1 rounded mt-2 inline-block">Semester 1, 2026</span>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-nust-blue">
+                        <i class="fa-solid fa-book text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid: Courses and Announcements -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Courses Table Section (Takes up 2/3 width on large screens) -->
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-800">Current Semester Courses</h3>
+                        <a href="#" class="text-sm text-nust-blue hover:underline font-medium">View All</a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                                    <th class="p-4 font-medium">Course Code</th>
+                                    <th class="p-4 font-medium">Course Title</th>
+                                    <th class="p-4 font-medium">Credits</th>
+                                    <th class="p-4 font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="p-4 font-medium text-gray-800">SCS 1101</td>
+                                    <td class="p-4 text-gray-600">Introduction to Computer Science</td>
+                                    <td class="p-4 text-gray-600">4</td>
+                                    <td class="p-4"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium">Registered</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="p-4 font-medium text-gray-800">SMA 1101</td>
+                                    <td class="p-4 text-gray-600">Calculus I</td>
+                                    <td class="p-4 text-gray-600">4</td>
+                                    <td class="p-4"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium">Registered</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="p-4 font-medium text-gray-800">SCS 1102</td>
+                                    <td class="p-4 text-gray-600">Programming Concepts (Java)</td>
+                                    <td class="p-4 text-gray-600">5</td>
+                                    <td class="p-4"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium">Registered</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="p-4 font-medium text-gray-800">CTL 1101</td>
+                                    <td class="p-4 text-gray-600">Communication Skills</td>
+                                    <td class="p-4 text-gray-600">2</td>
+                                    <td class="p-4"><span class="bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full text-xs font-medium">Pending Audit</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Announcements Section (Takes up 1/3 width) -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <div class="p-6 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800">Recent Announcements</h3>
+                    </div>
+                    <div class="p-0">
+                        <!-- Announcement Item -->
+                        <div class="p-5 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded font-medium">Urgent</span>
+                                <span class="text-xs text-gray-400">2 hours ago</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-1">Exam Registration Deadline</h4>
+                            <p class="text-sm text-gray-500 line-clamp-2">The deadline for exam registration for the current semester has been extended to Friday. Please ensure all fees are paid.</p>
+                        </div>
+                        
+                        <!-- Announcement Item -->
+                        <div class="p-5 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded font-medium">Academic</span>
+                                <span class="text-xs text-gray-400">1 day ago</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-1">Library Trading Hours</h4>
+                            <p class="text-sm text-gray-500 line-clamp-2">The main library will now be open 24/7 starting from next week to accommodate study sessions.</p>
+                        </div>
+                        
+                        <div class="p-4 text-center">
+                            <a href="#" class="text-sm text-nust-blue font-medium hover:underline">View All Announcements</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Footer -->
+            <footer class="mt-10 pt-6 border-t border-gray-200 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 pb-4">
+                <p>&copy; 2026 National University of Science and Technology. All rights reserved.</p>
+                <div class="flex gap-4 mt-2 sm:mt-0">
+                    <a href="#" class="hover:text-nust-blue transition-colors">Help Desk</a>
+                    <a href="#" class="hover:text-nust-blue transition-colors">Privacy Policy</a>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Open sidebar
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                // Close sidebar
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

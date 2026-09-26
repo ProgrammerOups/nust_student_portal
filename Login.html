@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUST Student Portal - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Custom Background Gradient (Deep Blue to Gold/Amber tones) */
+        .bg-nust-gradient {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #d4af37 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Custom Input Styling */
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #d4af37; /* Gold accent */
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+        }
+
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid #1e3a8a; /* Dark blue */
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body class="bg-nust-gradient min-h-screen flex items-center justify-center p-4">
+
+    <div class="glass-card w-full max-w-md rounded-3xl p-8 relative overflow-hidden transition-all duration-500" id="loginContainer">
+        
+        <!-- Decorative Glow Elements -->
+        <div class="absolute top-[-50px] left-[-50px] w-32 h-32 bg-yellow-400 rounded-full mix-blend-overlay filter blur-3xl opacity-30 pointer-events-none"></div>
+        <div class="absolute bottom-[-50px] right-[-50px] w-40 h-40 bg-blue-400 rounded-full mix-blend-overlay filter blur-3xl opacity-20 pointer-events-none"></div>
+
+        <div class="text-center mb-8 relative z-10">
+            <!-- Dummy NUST Logo (Graduation Cap + Book) -->
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 text-blue-900 shadow-lg mb-4">
+                <i class="fa-solid fa-graduation-cap text-3xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white tracking-wide">NUST Portal</h1>
+            <p class="text-gray-300 text-sm mt-2">National University of Science and Technology</p>
+        </div>
+
+        <form id="loginForm" class="space-y-6 relative z-10" onsubmit="handleLogin(event)">
+            
+            <!-- Student ID Field -->
+            <div>
+                <label for="studentId" class="block text-sm font-medium text-gray-300 mb-2">Student ID</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-regular fa-id-badge text-gray-400"></i>
+                    </div>
+                    <input type="text" id="studentId" name="studentId" required
+                        class="glass-input block w-full pl-11 pr-4 py-3 rounded-xl sm:text-sm" 
+                        placeholder="e.g. N0123456X">
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-lock text-gray-400"></i>
+                    </div>
+                    <input type="password" id="password" name="password" required
+                        class="glass-input block w-full pl-11 pr-10 py-3 rounded-xl sm:text-sm" 
+                        placeholder="••••••••">
+                    <!-- Toggle Password Visibility (Cosmetic only for this demo) -->
+                    <button type="button" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white focus:outline-none" onclick="togglePassword()">
+                        <i class="fa-regular fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center">
+                    <input id="remember-me" name="remember-me" type="checkbox" 
+                        class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-yellow-500 focus:ring-yellow-500 focus:ring-offset-gray-900 cursor-pointer">
+                    <label for="remember-me" class="ml-2 block text-gray-300 cursor-pointer">
+                        Remember me
+                    </label>
+                </div>
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-yellow-400 hover:text-yellow-300 transition-colors">
+                        Forgot Password?
+                    </a>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn"
+                class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-gray-900 transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                <span id="btnText">Sign In</span>
+                <div id="btnSpinner" class="spinner hidden ml-2"></div>
+            </button>
+        </form>
+
+        <!-- Mock Success Message (Hidden by default) -->
+        <div id="successMessage" class="hidden text-center py-8 relative z-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500 text-white mb-4 shadow-lg shadow-green-500/50">
+                <i class="fa-solid fa-check text-3xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Welcome Back!</h2>
+            <p class="text-gray-300 mb-6" id="welcomeText">Redirecting to your dashboard...</p>
+            <div class="w-full bg-gray-700 rounded-full h-1.5 mb-4 overflow-hidden">
+                <div class="bg-yellow-400 h-1.5 rounded-full" style="width: 0%;" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-xs text-gray-400 relative z-10 border-t border-white/10 pt-4" id="footerText">
+            <p>Don't have an account? <a href="#" class="text-yellow-400 hover:underline">Contact IT Services</a></p>
+            <p class="mt-1">&copy; 2026 National University of Science and Technology.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent actual form submission
+            
+            const studentId = document.getElementById('studentId').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            // UI Loading state
+            btnText.textContent = 'Authenticating...';
+            btnSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+
+            // Simulate network request
+            setTimeout(() => {
+                // Hide form elements
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('footerText').style.display = 'none';
+                
+                // Show success message
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.remove('hidden');
+                successMsg.classList.add('animate-fade-in');
+                
+                document.getElementById('welcomeText').textContent = `Redirecting student ${studentId}...`;
+
+                // Animate progress bar
+                let width = 0;
+                const progressBar = document.getElementById('progressBar');
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        // In a real app, this is where window.location.href = '/dashboard' would happen
+                    } else {
+                        width += 5;
+                        progressBar.style.width = width + '%';
+                    }
+                }, 100);
+
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
