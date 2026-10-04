@@ -9,18 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for a cleaner look */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         .nav-link.active {
-            background-color: #1e293b;
+            background-color: #1e293b; /* slate-800 */
             border-left-width: 4px;
-            border-color: #3b82f6;
+            border-color: #3b82f6; /* blue-500 */
             color: #ffffff;
         }
         
+        /* Smooth transitions */
         .page-section {
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -68,10 +70,10 @@
         </div>
         
         <div class="mt-auto p-4 border-t border-slate-800">
-            <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-2 text-sm font-medium text-red-400 hover:bg-slate-800 hover:text-red-300 rounded transition-colors">
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-red-400 hover:bg-slate-800 hover:text-red-300 rounded transition-colors">
                 <i class="fas fa-sign-out-alt w-5 text-center"></i>
                 Sign Out
-            </button>
+            </a>
         </div>
     </aside>
 
@@ -95,12 +97,12 @@
                     <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
                 </button>
                 <div class="h-8 w-px bg-gray-200"></div>
-                <div class="flex items-center gap-3 cursor-pointer" onclick="switchPage('page-profile')">
+                <div class="flex items-center gap-3 cursor-pointer">
                     <div class="text-right hidden sm:block">
-                        <div id="headerName" class="text-sm font-bold text-gray-800">Loading...</div>
-                        <div id="headerStudentId" class="text-xs text-gray-500">...</div>
+                        <div class="text-sm font-bold text-gray-800">Tinashe Ndlovu</div>
+                        <div class="text-xs text-gray-500">N0248593X</div>
                     </div>
-                    <img id="headerAvatar" src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff" alt="Profile" class="w-9 h-9 rounded-full shadow-sm border-2 border-white">
+                    <img src="https://placehold.co/100x100/2563eb/ffffff?text=TN" alt="Profile" class="w-9 h-9 rounded-full shadow-sm border-2 border-white">
                 </div>
             </div>
         </header>
@@ -111,37 +113,40 @@
             <!-- ================= DASHBOARD PAGE ================= -->
             <div id="page-dashboard" class="page-section max-w-6xl mx-auto">
                 <div class="mb-8">
-                    <h1 class="text-2xl font-bold text-gray-900">Welcome back, <span id="dashFirstName">Student</span>!</h1>
+                    <h1 class="text-2xl font-bold text-gray-900">Welcome back, Tinashe!</h1>
                     <p class="text-gray-500 mt-1">Here is what's happening with your academics today.</p>
                 </div>
                 
                 <!-- Stats Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Stat Card 1 -->
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center justify-between">
                         <div>
                             <div class="text-sm font-medium text-gray-500 mb-1">Current CGPA</div>
-                            <div id="dashGpa" class="text-3xl font-bold text-gray-900">0.00</div>
-                            <div class="text-xs text-green-600 mt-2 flex items-center gap-1"><i class="fas fa-arrow-up"></i> Academic Good Standing</div>
+                            <div class="text-3xl font-bold text-gray-900">2.1</div>
+                            <div class="text-xs text-green-600 mt-2 flex items-center gap-1"><i class="fas fa-arrow-up"></i> Improved from 2.2</div>
                         </div>
                         <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xl">
                             <i class="fas fa-chart-line"></i>
                         </div>
                     </div>
+                    <!-- Stat Card 2 -->
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center justify-between">
                         <div>
                             <div class="text-sm font-medium text-gray-500 mb-1">Registered Courses</div>
-                            <div id="dashCourseCount" class="text-3xl font-bold text-gray-900">6</div>
+                            <div class="text-3xl font-bold text-gray-900">6</div>
                             <div class="text-xs text-gray-500 mt-2">Current Semester</div>
                         </div>
                         <div class="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 text-xl">
                             <i class="fas fa-book-open"></i>
                         </div>
                     </div>
+                    <!-- Stat Card 3 -->
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center justify-between">
                         <div>
                             <div class="text-sm font-medium text-gray-500 mb-1">Outstanding Balance</div>
-                            <div id="dashBalance" class="text-3xl font-bold text-red-600">$0.00</div>
-                            <div id="dashBalanceStatus" class="text-xs text-gray-500 mt-2">Up to date</div>
+                            <div class="text-3xl font-bold text-red-600">$450.00</div>
+                            <div class="text-xs text-gray-500 mt-2">Due in 14 days</div>
                         </div>
                         <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-red-600 text-xl">
                             <i class="fas fa-file-invoice-dollar"></i>
@@ -151,7 +156,7 @@
 
                 <!-- Main Grid Layout -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Schedule -->
+                    <!-- Today's Schedule -->
                     <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                             <h2 class="font-semibold text-gray-800">Today's Schedule</h2>
@@ -159,6 +164,7 @@
                         </div>
                         <div class="p-6">
                             <div class="space-y-6">
+                                <!-- Class Item -->
                                 <div class="flex gap-4 relative">
                                     <div class="w-16 flex-shrink-0 text-right">
                                         <div class="text-sm font-bold text-gray-900">08:00</div>
@@ -173,6 +179,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Class Item -->
                                 <div class="flex gap-4 relative">
                                     <div class="w-16 flex-shrink-0 text-right">
                                         <div class="text-sm font-bold text-gray-900">11:00</div>
@@ -206,6 +213,9 @@
                                 <div class="font-medium text-gray-800 text-sm">Library Overdue Fines</div>
                                 <p class="text-xs text-gray-500 mt-1 line-clamp-2">A reminder to clear all library fines before the end of the registration period.</p>
                             </a>
+                            <a href="#" class="block p-5 hover:bg-gray-50 transition-colors text-center text-sm font-medium text-blue-600">
+                                View all announcements
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -220,6 +230,19 @@
                     </div>
                 </div>
 
+                <!-- Tabs -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                        <button class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            Registered Courses
+                        </button>
+                        <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            Course Registration
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Registered Courses List -->
                 <div class="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
@@ -238,23 +261,62 @@
                                     <td class="px-6 py-4 text-gray-800">Data Structures and Algorithms</td>
                                     <td class="px-6 py-4 text-gray-600">12</td>
                                     <td class="px-6 py-4 text-gray-600">Dr. M. Dube</td>
-                                    <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span></td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
                                 </tr>
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 font-medium text-blue-600">SCS2102</td>
                                     <td class="px-6 py-4 text-gray-800">Operating Systems</td>
                                     <td class="px-6 py-4 text-gray-600">12</td>
                                     <td class="px-6 py-4 text-gray-600">Mr. S. Moyo</td>
-                                    <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span></td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
                                 </tr>
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 font-medium text-blue-600">SCS2103</td>
                                     <td class="px-6 py-4 text-gray-800">Database Concepts</td>
                                     <td class="px-6 py-4 text-gray-600">12</td>
                                     <td class="px-6 py-4 text-gray-600">Prof. J. Sibanda</td>
-                                    <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span></td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-blue-600">SCS2104</td>
+                                    <td class="px-6 py-4 text-gray-800">Software Engineering</td>
+                                    <td class="px-6 py-4 text-gray-600">12</td>
+                                    <td class="px-6 py-4 text-gray-600">Ms. N. Nyoni</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-blue-600">SMA2101</td>
+                                    <td class="px-6 py-4 text-gray-800">Calculus II</td>
+                                    <td class="px-6 py-4 text-gray-600">10</td>
+                                    <td class="px-6 py-4 text-gray-600">Dr. A. Tshuma</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-blue-600">CTL1101</td>
+                                    <td class="px-6 py-4 text-gray-800">Conflict Transformation</td>
+                                    <td class="px-6 py-4 text-gray-600">10</td>
+                                    <td class="px-6 py-4 text-gray-600">Mrs. B. Mpofu</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded">Registered</span>
+                                    </td>
                                 </tr>
                             </tbody>
+                            <tfoot class="bg-gray-50 border-t border-gray-100">
+                                <tr>
+                                    <td colspan="2" class="px-6 py-4 font-semibold text-gray-800 text-right">Total Credits:</td>
+                                    <td colspan="3" class="px-6 py-4 font-bold text-gray-900">68</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -267,6 +329,23 @@
                     <p class="text-gray-500 mt-1">View your official transcript and grades.</p>
                 </div>
 
+                <!-- Filters & Summary -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <label class="text-sm font-medium text-gray-600">Select Academic Part:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                            <option value="part2sem1">Part II, Semester I (Current)</option>
+                            <option value="part1sem2">Part I, Semester II</option>
+                            <option value="part1sem1" selected>Part I, Semester I</option>
+                        </select>
+                    </div>
+                    
+                    <button class="bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+                        <i class="fas fa-print"></i> Print Transcript
+                    </button>
+                </div>
+
+                <!-- Transcript Block -->
                 <div class="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden">
                     <div class="px-6 py-5 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                         <h2 class="font-bold text-gray-800">Part I, Semester I</h2>
@@ -291,8 +370,46 @@
                                     <td class="px-6 py-4 text-center"><span class="font-bold text-green-600">1</span></td>
                                     <td class="px-6 py-4 text-center text-gray-600">Distinction</td>
                                 </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-gray-800">SCS1102</td>
+                                    <td class="px-6 py-4 text-gray-600">Computer Organization</td>
+                                    <td class="px-6 py-4 text-center font-medium">65</td>
+                                    <td class="px-6 py-4 text-center"><span class="font-bold text-blue-600">2.1</span></td>
+                                    <td class="px-6 py-4 text-center text-gray-600">Upper Second</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-gray-800">SMA1101</td>
+                                    <td class="px-6 py-4 text-gray-600">Calculus I</td>
+                                    <td class="px-6 py-4 text-center font-medium">72</td>
+                                    <td class="px-6 py-4 text-center"><span class="font-bold text-blue-600">2.1</span></td>
+                                    <td class="px-6 py-4 text-center text-gray-600">Upper Second</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-gray-800">SPH1101</td>
+                                    <td class="px-6 py-4 text-gray-600">Mechanics and Relativity</td>
+                                    <td class="px-6 py-4 text-center font-medium">58</td>
+                                    <td class="px-6 py-4 text-center"><span class="font-bold text-yellow-600">2.2</span></td>
+                                    <td class="px-6 py-4 text-center text-gray-600">Lower Second</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-gray-800">PLC1101</td>
+                                    <td class="px-6 py-4 text-gray-600">Peace and Leadership</td>
+                                    <td class="px-6 py-4 text-center font-medium">81</td>
+                                    <td class="px-6 py-4 text-center"><span class="font-bold text-green-600">1</span></td>
+                                    <td class="px-6 py-4 text-center text-gray-600">Distinction</td>
+                                </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center gap-8">
+                        <div class="text-sm">
+                            <span class="text-gray-500">Semester GPA:</span>
+                            <span class="font-bold text-gray-900 ml-1">2.1</span>
+                        </div>
+                        <div class="text-sm">
+                            <span class="text-gray-500">Decision:</span>
+                            <span class="font-bold text-green-600 ml-1">PROCEED TO PART I SEM II</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -305,14 +422,92 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Balance Card -->
                     <div class="md:col-span-2 bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl shadow-md p-8 text-white relative overflow-hidden">
+                        <div class="absolute right-0 top-0 opacity-10">
+                            <i class="fas fa-university text-9xl -mt-6 -mr-6"></i>
+                        </div>
                         <div class="relative z-10">
                             <h2 class="text-slate-300 font-medium mb-2">Total Outstanding Balance</h2>
-                            <div id="financeBalance" class="text-5xl font-bold mb-6">$0.00</div>
-                            <button class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-2.5 rounded-lg transition-colors shadow-lg">
-                                Pay Now Online
-                            </button>
+                            <div class="text-5xl font-bold mb-6">$450.00</div>
+                            <div class="flex gap-4">
+                                <button class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-2.5 rounded-lg transition-colors shadow-lg shadow-blue-500/30">
+                                    Pay Now Online
+                                </button>
+                                <button class="bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-2.5 rounded-lg transition-colors border border-white/20">
+                                    Download Invoice
+                                </button>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <!-- Bank Details Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4 border-b border-gray-100 pb-2">NUST Bank Details</h3>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <div class="text-gray-500 text-xs">Bank Name</div>
+                                <div class="font-medium text-gray-900">CBZ Bank</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500 text-xs">Account Name</div>
+                                <div class="font-medium text-gray-900">NUST Main Account</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500 text-xs">Account Number</div>
+                                <div class="font-medium text-gray-900 font-mono">0123 4567 8901</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500 text-xs">Branch</div>
+                                <div class="font-medium text-gray-900">Bulawayo Branch</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-blue-600">
+                                <i class="fas fa-info-circle mr-1"></i> Quote your Student ID (N0248593X) on all deposits.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50">
+                        <h2 class="font-semibold text-gray-800">Transaction History</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-gray-500 bg-white uppercase border-b border-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 font-semibold">Date</th>
+                                    <th scope="col" class="px-6 py-4 font-semibold">Description</th>
+                                    <th scope="col" class="px-6 py-4 font-semibold text-right">Debit (Dr)</th>
+                                    <th scope="col" class="px-6 py-4 font-semibold text-right">Credit (Cr)</th>
+                                    <th scope="col" class="px-6 py-4 font-semibold text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-gray-500 whitespace-nowrap">01 Aug 2026</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Tuition Fees - Semester 1</td>
+                                    <td class="px-6 py-4 text-right text-gray-900">$850.00</td>
+                                    <td class="px-6 py-4 text-right text-gray-500">-</td>
+                                    <td class="px-6 py-4 text-right font-medium">$850.00</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-gray-500 whitespace-nowrap">01 Aug 2026</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Registration Fee</td>
+                                    <td class="px-6 py-4 text-right text-gray-900">$50.00</td>
+                                    <td class="px-6 py-4 text-right text-gray-500">-</td>
+                                    <td class="px-6 py-4 text-right font-medium">$900.00</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-gray-500 whitespace-nowrap">15 Aug 2026</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Bank Deposit (CBZ)</td>
+                                    <td class="px-6 py-4 text-right text-gray-500">-</td>
+                                    <td class="px-6 py-4 text-right text-green-600">$450.00</td>
+                                    <td class="px-6 py-4 text-right font-medium">$450.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -325,48 +520,68 @@
                 </div>
 
                 <div class="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden mb-6">
+                    <!-- Profile Header -->
                     <div class="h-32 bg-slate-900 relative">
                         <div class="absolute -bottom-12 left-8">
-                            <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff" alt="Profile" class="w-24 h-24 rounded-full border-4 border-white shadow-md bg-white">
+                            <img src="https://placehold.co/200x200/2563eb/ffffff?text=TN" alt="Profile" class="w-24 h-24 rounded-full border-4 border-white shadow-md bg-white">
                         </div>
                     </div>
                     
                     <div class="pt-16 pb-6 px-8 flex justify-between items-start">
                         <div>
-                            <h2 id="profileFullName" class="text-2xl font-bold text-gray-900">...</h2>
-                            <p id="profileProgram" class="text-gray-500 font-medium">Computer Science</p>
+                            <h2 class="text-2xl font-bold text-gray-900">Tinashe Ndlovu</h2>
+                            <p class="text-gray-500 font-medium">BSc (Hons) Computer Science</p>
                         </div>
                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
                             Active Student
                         </span>
                     </div>
 
+                    <!-- Details Grid -->
                     <div class="px-8 pb-8">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Column 1 -->
                             <div>
                                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 pb-2 border-b border-gray-100">Personal Details</h3>
                                 <div class="space-y-4">
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">Student Number</div>
-                                        <div id="profileStudentId" class="font-medium text-gray-900">...</div>
+                                        <div class="font-medium text-gray-900">N0248593X</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-1">National ID</div>
+                                        <div class="font-medium text-gray-900">08-1234567-C-00</div>
                                     </div>
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">Email Address</div>
-                                        <div id="profileEmail" class="font-medium text-gray-900">...</div>
+                                        <div class="font-medium text-gray-900">tinashe.ndlovu@students.nust.ac.zw</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-1">Phone Number</div>
+                                        <div class="font-medium text-gray-900">+263 77 123 4567</div>
                                     </div>
                                 </div>
                             </div>
                             
+                            <!-- Column 2 -->
                             <div>
                                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 pb-2 border-b border-gray-100">Academic Details</h3>
                                 <div class="space-y-4">
                                     <div>
+                                        <div class="text-xs text-gray-500 mb-1">Faculty</div>
+                                        <div class="font-medium text-gray-900">Applied Sciences</div>
+                                    </div>
+                                    <div>
                                         <div class="text-xs text-gray-500 mb-1">Department</div>
-                                        <div id="profileDept" class="font-medium text-gray-900">Computer Science</div>
+                                        <div class="font-medium text-gray-900">Computer Science</div>
                                     </div>
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">Year of Study</div>
-                                        <div id="profileYear" class="font-medium text-gray-900">Part I</div>
+                                        <div class="font-medium text-gray-900">Part II (2nd Year)</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-1">Enrollment Status</div>
+                                        <div class="font-medium text-gray-900">Full Time - Conventional</div>
                                     </div>
                                 </div>
                             </div>
@@ -378,105 +593,134 @@
         </div>
     </main>
 
-    <script>
-    // Fetch JWT Auth Data on Load
+   <script>
+    // ----------------------------------------------------
+    // API & Dynamic Data Integration
+    // ----------------------------------------------------
     document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-        window.location.href = '/Login.html';
-        return;
-    }
+        await fetchPortalData();
+    });
 
-    try {
-        const response = await fetch('/api/v1/student/dashboard', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+    async function fetchPortalData() {
+        const token = localStorage.getItem('token');
 
-        if (response.status === 401 || response.status === 403) {
-            handleLogout();
+        // Redirect to Login if token is missing
+        if (!token) {
+            window.location.href = '/Login.html';
             return;
         }
 
-        const result = await response.json();
-        console.log('Backend response payload:', result); // Inspect exact keys in F12 console
+        try {
+            const response = await fetch('/api/v1/student/dashboard', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
 
-        if (result.success) {
-            // Unnest student data whether backend returns result.data, result.user, or result.data.user
-            const student = result.data?.user || result.data || result.user || {};
-
-            // Extract student ID
-            const studentId = student.studentId || student.id || student.username || 'N02529096Q';
-
-            // Extract name (Prisma seed uses 'name')
-            const rawName = student.name || student.fullName || `${student.firstName || ''} ${student.lastName || ''}`.trim();
-            const fullName = rawName && rawName !== 'undefined undefined' ? rawName : 'Munashe Caleb Brendon Dhliwayo';
-            const firstName = fullName.split(' ')[0];
-
-            const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=2563eb&color=fff`;
-
-            // Top Header
-            document.getElementById('headerName').textContent = fullName;
-            document.getElementById('headerStudentId').textContent = studentId;
-            document.getElementById('headerAvatar').src = avatarUrl;
-
-            // Dashboard Section
-            document.getElementById('dashFirstName').textContent = firstName;
-            document.getElementById('dashGpa').textContent = student.currentGPA || student.gpa ? Number(student.currentGPA || student.gpa).toFixed(2) : '3.90';
-            
-            const balance = student.financials?.balance ?? student.balance ?? 0.00;
-            const formattedBalance = `$${Number(balance).toFixed(2)}`;
-            document.getElementById('dashBalance').textContent = formattedBalance;
-            if (document.getElementById('financeBalance')) {
-                document.getElementById('financeBalance').textContent = formattedBalance;
+            // Handle invalid or expired session
+            if (response.status === 401 || response.status === 403) {
+                localStorage.removeItem('token');
+                window.location.href = '/Login.html';
+                return;
             }
 
-            // Profile Page Section
-            document.getElementById('profileFullName').textContent = fullName;
-            document.getElementById('profileStudentId').textContent = studentId;
-            document.getElementById('profileEmail').textContent = student.email || 'munashe.dhliwayo@nust.ac.zw';
-            document.getElementById('profileProgram').textContent = student.program || 'BSc (Hons) Computer Science';
-            document.getElementById('profileYear').textContent = `Part ${student.year || 1}`;
-            document.getElementById('profileAvatar').src = avatarUrl;
+            const data = await response.json();
+            if (data.student) {
+                populateStudentData(data.student);
+            }
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
         }
-    } catch (err) {
-        console.error('Failed to load profile details:', err);
-    }
-});
-
-    function handleLogout() {
-        localStorage.removeItem('token');
-        window.location.href = '/Login.html';
     }
 
+    function populateStudentData(student) {
+        const fullName = `${student.firstName} ${student.lastName}`;
+        const initials = `${student.firstName?.[0] || 'S'}${student.lastName?.[0] || 'P'}`;
+
+        // Top Header
+        const headerName = document.querySelector('header .text-sm.font-bold');
+        if (headerName) headerName.textContent = fullName;
+
+        const headerId = document.querySelector('header .text-xs.text-gray-500');
+        if (headerId) headerId.textContent = student.studentId;
+
+        const headerAvatar = document.querySelector('header img');
+        if (headerAvatar) headerAvatar.src = `https://placehold.co/100x100/2563eb/ffffff?text=${initials}`;
+
+        // Dashboard Page
+        const welcomeHeading = document.querySelector('#page-dashboard h1');
+        if (welcomeHeading) welcomeHeading.textContent = `Welcome back, ${student.firstName}!`;
+
+        const statCards = document.querySelectorAll('#page-dashboard .text-3xl.font-bold');
+        if (statCards[0]) statCards[0].textContent = student.gpa || '2.1';
+        if (statCards[1]) statCards[1].textContent = student.registeredCoursesCount || '6';
+        if (statCards[2]) statCards[2].textContent = `$${student.balance || '450.00'}`;
+
+        // Profile Page
+        const profileName = document.querySelector('#page-profile h2');
+        if (profileName) profileName.textContent = fullName;
+
+        const profileProgram = document.querySelector('#page-profile p.text-gray-500.font-medium');
+        if (profileProgram) profileProgram.textContent = student.program || 'BSc (Hons) Computer Science';
+
+        const profileAvatar = document.querySelector('#page-profile img');
+        if (profileAvatar) profileAvatar.src = `https://placehold.co/200x200/2563eb/ffffff?text=${initials}`;
+    }
+
+    // Sign Out Handler
+  function handleSignOut(event) {
+    if (event) event.preventDefault();
+
+    // 1. Clear authorization token and cached student info
+    localStorage.removeItem('token');
+    localStorage.removeItem('studentData');
+    sessionStorage.clear(); // Clears any temporary session data
+
+    // 2. Redirect to login page
+    window.location.replace('/Login.html'); // replace prevents back-button returning to portal
+}
+
+    // ----------------------------------------------------
+    // Tab / Page Switching Logic
+    // ----------------------------------------------------
     function switchPage(pageId, element) {
+        // Hide all pages
         const pages = document.querySelectorAll('.page-section');
         pages.forEach(page => page.classList.add('hidden'));
-        
+
+        // Show target page
         const targetPage = document.getElementById(pageId);
         if (targetPage) targetPage.classList.remove('hidden');
-        
+
+        // Update sidebar nav states
         const links = document.querySelectorAll('.nav-link');
         links.forEach(link => {
             link.classList.remove('active', 'bg-slate-800', 'text-white', 'border-blue-500');
             link.classList.add('text-gray-400', 'border-transparent');
         });
-        
+
+        // Set active state on clicked link
         if (element) {
             element.classList.remove('text-gray-400', 'border-transparent');
             element.classList.add('active', 'bg-slate-800', 'text-white', 'border-blue-500');
         }
 
+        // On mobile, hide sidebar after clicking a link
         if (window.innerWidth < 768) {
             const sidebar = document.getElementById('sidebar');
-            sidebar.classList.add('-translate-x-full');
+            if (sidebar) sidebar.classList.add('-translate-x-full');
         }
     }
 
+    // ----------------------------------------------------
+    // Mobile Sidebar Logic
+    // ----------------------------------------------------
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
+        if (!sidebar) return;
+
         if (sidebar.classList.contains('-translate-x-full')) {
             sidebar.classList.remove('-translate-x-full');
             sidebar.classList.add('absolute', 'h-full');
@@ -487,6 +731,8 @@
 
     window.addEventListener('resize', () => {
         const sidebar = document.getElementById('sidebar');
+        if (!sidebar) return;
+
         if (window.innerWidth >= 768) {
             sidebar.classList.remove('-translate-x-full', 'absolute', 'h-full');
         } else {
@@ -497,7 +743,8 @@
     });
 
     if (window.innerWidth < 768) {
-        document.getElementById('sidebar').classList.add('-translate-x-full', 'absolute', 'h-full');
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) sidebar.classList.add('-translate-x-full', 'absolute', 'h-full');
     }
 </script>
 </body>

@@ -12,24 +12,34 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.12.1",
     "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2"
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
+    "@prisma/client": "^5.22.0",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.7",
-    "prisma": "^5.12.1",
+    "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.3"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProgrammerOups/nust_student_portal.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ProgrammerOups/nust_student_portal/issues"
+  },
+  "homepage": "https://github.com/ProgrammerOups/nust_student_portal#readme"
 }

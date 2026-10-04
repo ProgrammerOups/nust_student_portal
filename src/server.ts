@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.routes';
 import studentRoutes from './routes/student.routes';
+import adminRoutes from './routes/admin.routes';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/student', studentRoutes);
+app.use('/api/v1/admin/students', adminRoutes);
 
 // Root route serves Login page
 app.get('/', (req: Request, res: Response) => {

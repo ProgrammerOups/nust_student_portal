@@ -185,7 +185,7 @@
         async function handleLogin(event) {
             event.preventDefault();
             
-            const studentId = document.getElementById('studentId').value;
+            const studentId = document.getElementById('studentId').value.trim();
             const password = document.getElementById('password').value;
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
@@ -204,21 +204,32 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ studentId, password })
+                    body: JSON.stringify({
+                        studentId: studentId,
+                        password: password
+                    })
                 });
 
                 const data = await response.json();
 
                 if (response.ok && data.success) {
+                    // Store JWT token for protected dashboard routes
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                    }
+
                     // Hide form elements
                     document.getElementById('loginForm').style.display = 'none';
-                    document.getElementById('footerText').style.display = 'none';
+                    if (document.getElementById('footerText')) {
+                        document.getElementById('footerText').style.display = 'none';
+                    }
                     
                     // Show success message
                     const successMsg = document.getElementById('successMessage');
                     successMsg.classList.remove('hidden');
                     
-                    document.getElementById('welcomeText').textContent = `Welcome back, ${data.user.name}! Redirecting...`;
+                    const welcomeName = data.user?.name || studentId;
+                    document.getElementById('welcomeText').textContent = `Welcome back, ${welcomeName}! Redirecting...`;
 
                     // Animate progress bar and redirect to Student Dashboard
                     let width = 0;
@@ -249,7 +260,6 @@
                 submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
             }
         }
-        
     </script>
 </body>
 </html>
